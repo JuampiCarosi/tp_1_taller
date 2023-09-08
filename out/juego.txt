@@ -1,0 +1,1 @@
+ERROR: [Las coordenadas ingresadas no corresponden a ninguna bomba].
