@@ -1,5 +1,10 @@
 use crate::{io, map, map_elements::Item, point::Point};
 
+/// Toma los argumentos de entrada y valida que sean correctos, en caso de serlo devuelve una tupla con los argumentos
+/// # Arguments
+/// * `args` - Vector de strings con los argumentos de entrada
+/// # Returns
+/// * `Option<(String, String, usize, usize)>` - Tupla con los argumentos de entrada
 pub fn validate_input(args: Vec<String>) -> Option<(String, String, usize, usize)> {
     if args.len() <= 2 {
         println!("ERROR: [No se ingreso un directorio de output].");
@@ -34,7 +39,12 @@ pub fn validate_input(args: Vec<String>) -> Option<(String, String, usize, usize
 
     Some((input_file, output_file, x, y))
 }
-
+/// Ejecuta un turno del juego detonando la bomba en el punto ingresado
+/// # Arguments
+/// * `map` - Mapa del juego
+/// * `point` - Punto donde se detonara la bomba
+/// # Returns
+/// * `Result<&map::Map, String>` - Resultado de la ejecucion del turno
 pub fn execute_turn(map: &mut map::Map, point: Point) -> Result<&map::Map, String> {
     if !map.is_point_in_map(&point) {
         return Err(String::from(

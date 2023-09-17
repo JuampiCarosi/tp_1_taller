@@ -2,6 +2,8 @@ use std::fmt;
 
 use crate::direction::Direction;
 
+/// Los desvios se implementan como direcciones, ya que solo se puede desviar arriba, abajo, izquierda o derecha, igual que las direcciones.
+/// Esto faicilita la implementacion de los desvios ya que se puede usar la misma logica que para las direcciones al propagar explosiones.
 pub type Detour = Direction;
 
 impl fmt::Display for Detour {
@@ -16,6 +18,11 @@ impl fmt::Display for Detour {
 }
 
 impl Detour {
+    /// Parsea un string en un desvio
+    /// # Arguments
+    /// * `string` - String a parsear.
+    /// # Returns
+    /// * `Result<Detour, String>` - Desvio parseado o mensaje de error.
     pub fn parse(string: &str) -> Result<Detour, String> {
         let (_, direction) = string.split_at(1);
         match direction {

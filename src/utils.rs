@@ -1,5 +1,10 @@
-pub fn parse_greater_than_zero_u32(raw_string: &str) -> Result<u32, String> {
-    match raw_string.parse::<u32>() {
+/// Parsea un string a un u32, si el numero es mayor a cero devuelve el numero, sino devuelve un string con el mensaje de error.
+/// # Arguments
+/// * `string` - String a parsear.
+/// # Returns
+/// * `Result<u32, String>` - Numero parseado o mensaje de error.
+pub fn parse_greater_than_zero_u32(string: &str) -> Result<u32, String> {
+    match string.parse::<u32>() {
         Ok(n) => {
             if n > 0 {
                 Ok(n)

@@ -3,6 +3,7 @@ use std::fmt;
 
 #[derive(PartialEq, Debug)]
 pub enum Item {
+    /// Los posibles items que pueden encontrarse en el mapa.
     Empty,
     Wall,
     Rock,
@@ -13,6 +14,11 @@ pub enum Item {
 }
 
 impl Item {
+    /// Parsea un string y devuelve el item correspondiente.
+    /// # Arguments
+    /// * `string` - String a parsear.
+    /// # Returns
+    /// * `Result<Item, String>` - Item correspondiente al string o mensaje de error.
     pub fn parse(string: &str) -> Result<Item, String> {
         match string {
             "_" => Ok(Item::Empty),

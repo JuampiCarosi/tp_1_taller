@@ -2,6 +2,8 @@ use std::fs;
 
 use crate::map::Map;
 
+/// Crea un directorio en caso de que no exista.
+/// * `output_dir` - Nombre del directorio a crear.
 pub fn create_directory(output_dir: &str) {
     let dir = fs::metadata(output_dir);
     if dir.is_ok() {
@@ -13,11 +15,13 @@ pub fn create_directory(output_dir: &str) {
         Ok(_) => {}
         Err(e) => {
             println!("ERROR: [No se pudo crear el directorio -- {e}].");
-            // panic!();
         }
     };
 }
 
+/// Escribe un mensaje de error en un archivo siguiendo el formato de la catedra.
+/// * `output_file` - Nombre del archivo de salida.
+/// * `mensaje` - Mensaje de error a escribir en el archivo
 pub fn write_error(output_file: &str, mensaje: &str) {
     let mut dir = output_file.split('/').collect::<Vec<&str>>();
     dir.pop();
@@ -32,6 +36,9 @@ pub fn write_error(output_file: &str, mensaje: &str) {
     };
 }
 
+/// Lee un archivo y devuelve su contenido.
+/// * `input_file` - Nombre del archivo a leer.
+/// * `Result<String, String>` - Contenido del archivo o mensaje de error.
 pub fn read_file(input_file: &str) -> Result<String, String> {
     match fs::read_to_string(input_file) {
         Ok(s) => Ok(s),
@@ -41,6 +48,10 @@ pub fn read_file(input_file: &str) -> Result<String, String> {
     }
 }
 
+/// Escribe el mapa en un archivo siguiendo el formato de la catedra.
+/// * `output_file` - Nombre del archivo de salida.
+/// * `map` - Mapa a escribir en el archivo.
+/// * `Result<(), String>` - Mensaje de error en caso de que no se pueda escribir el archivo.
 pub fn write_output(output_file: &str, map: &Map) {
     let mut dir = output_file.split('/').collect::<Vec<&str>>();
     dir.pop();
