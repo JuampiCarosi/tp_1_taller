@@ -12,7 +12,7 @@ impl fmt::Display for Map {
                 formatted_line.push_str(&(item.to_string() + " "));
             }
             formatted_line.pop();
-            write!(f, "{}\n", formatted_line)?;
+            writeln!(f, "{}", formatted_line)?;
         }
         Ok(())
     }
@@ -40,7 +40,7 @@ impl Map {
     }
 
     pub fn get_explosion_properties(&self, point: &Point) -> Result<(u32, bool), String> {
-        let bomb = self.at(&point);
+        let bomb = self.at(point);
 
         match bomb {
             Item::Bomb(reach) => Ok((*reach, false)),
@@ -87,13 +87,13 @@ impl Map {
     }
 
     pub fn detonate_bomb(&mut self, point: &Point) -> Result<(), String> {
-        let (reach, is_piercing) = self.get_explosion_properties(&point)?;
-        self.set_at(&point, Item::Empty);
+        let (reach, is_piercing) = self.get_explosion_properties(point)?;
+        self.set_at(point, Item::Empty);
 
-        self.spread_burst(&point, Direction::Up, is_piercing, reach)?;
-        self.spread_burst(&point, Direction::Down, is_piercing, reach)?;
-        self.spread_burst(&point, Direction::Left, is_piercing, reach)?;
-        self.spread_burst(&point, Direction::Right, is_piercing, reach)?;
+        self.spread_burst(point, Direction::Up, is_piercing, reach)?;
+        self.spread_burst(point, Direction::Down, is_piercing, reach)?;
+        self.spread_burst(point, Direction::Left, is_piercing, reach)?;
+        self.spread_burst(point, Direction::Right, is_piercing, reach)?;
         Ok(())
     }
 
@@ -130,20 +130,20 @@ impl Map {
             };
         }
         self.damage_enemies(enemies_to_damage);
-        return Ok(());
+        Ok(())
     }
 
     pub fn new(input_file: &str) -> Result<Map, String> {
-        let map_raw = io::read_file(&input_file)?;
+        let map_raw = io::read_file(input_file)?;
         let mut map = Map(Vec::new());
 
-        let lines = map_raw.split("\n");
+        let lines = map_raw.split('\n');
         for line in lines {
             let mut matrix_row: Vec<Item> = Vec::new();
-            let values = line.split(" ");
+            let values = line.split(' ');
 
             for value in values {
-                if value == "" {
+                if value.is_empty() {
                     continue;
                 }
                 let item = Item::parse(value)?;

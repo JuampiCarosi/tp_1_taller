@@ -32,7 +32,7 @@ pub fn validate_input(args: Vec<String>) -> Option<(String, String, usize, usize
         }
     };
 
-    return Some((input_file, output_file, x, y));
+    Some((input_file, output_file, x, y))
 }
 
 pub fn execute_turn(map: &mut map::Map, point: Point) -> Result<&map::Map, String> {
@@ -52,7 +52,7 @@ pub fn execute_turn(map: &mut map::Map, point: Point) -> Result<&map::Map, Strin
     }
 
     map.detonate_bomb(&point)?;
-    return Ok(map);
+    Ok(map)
 }
 
 #[cfg(test)]

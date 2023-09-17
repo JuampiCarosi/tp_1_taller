@@ -34,7 +34,6 @@ fn main() {
         Ok(new_map) => io::write_output(&output_file, new_map),
         Err(e) => {
             io::write_error(&output_file, &e);
-            return;
         }
-    };
+    }
 }

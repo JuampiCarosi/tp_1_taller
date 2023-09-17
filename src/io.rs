@@ -19,9 +19,9 @@ pub fn create_directory(output_dir: &str) {
 }
 
 pub fn write_error(output_file: &str, mensaje: &str) {
-    let mut dir = output_file.split("/").collect::<Vec<&str>>();
+    let mut dir = output_file.split('/').collect::<Vec<&str>>();
     dir.pop();
-    if dir.len() > 0 {
+    if !dir.is_empty() {
         create_directory(&dir.join("/"));
     }
     match fs::write(output_file, mensaje) {
@@ -42,9 +42,9 @@ pub fn read_file(input_file: &str) -> Result<String, String> {
 }
 
 pub fn write_output(output_file: &str, map: &Map) {
-    let mut dir = output_file.split("/").collect::<Vec<&str>>();
+    let mut dir = output_file.split('/').collect::<Vec<&str>>();
     dir.pop();
-    if dir.len() > 0 {
+    if !dir.is_empty() {
         create_directory(&dir.join("/"));
     }
     match fs::write(output_file, map.to_string()) {

@@ -171,9 +171,8 @@ fn map_life_4() {
                 e,
                 "ERROR: [La vida de los enemigos no puede ser mayor a 3]."
             );
-            return;
         }
-    };
+    }
 }
 
 #[test]

@@ -18,11 +18,11 @@ impl Item {
             "_" => Ok(Item::Empty),
             "W" => Ok(Item::Wall),
             "R" => Ok(Item::Rock),
-            d if d.starts_with("D") => {
+            d if d.starts_with('D') => {
                 let detour = Detour::parse(string)?;
                 Ok(Item::Detour(detour))
             }
-            f if f.starts_with("F") => {
+            f if f.starts_with('F') => {
                 let (_, health_raw) = f.split_at(1);
                 let health = parse_greater_than_zero_u32(health_raw)?;
                 if health > 3 {
@@ -32,21 +32,18 @@ impl Item {
                 }
                 Ok(Item::Enemy(health))
             }
-            b if b.starts_with("B") => {
+            b if b.starts_with('B') => {
                 let (_, reach_raw) = b.split_at(1);
                 let reach = parse_greater_than_zero_u32(reach_raw)?;
                 Ok(Item::Bomb(reach))
             }
-            s if s.starts_with("S") => {
+            s if s.starts_with('S') => {
                 let (_, reach_raw) = s.split_at(1);
                 let reach = parse_greater_than_zero_u32(reach_raw)?;
                 Ok(Item::PiercingBomb(reach))
             }
-            char => Err(String::from(
-                "ERROR: [El archivo de entrada contiene un caracter invalido '".to_owned()
-                    + char
-                    + "'].",
-            )),
+            char => Err("ERROR: [El archivo de entrada contiene un caracter invalido '".to_owned()
+                    + char + "']."),
         }
     }
 }
