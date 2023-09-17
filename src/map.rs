@@ -20,14 +20,10 @@ impl fmt::Display for Map {
 }
 
 impl Map {
-    /// Agrega una fila al mapa
-    /// # Arguments
-    /// * `line` - Fila a agregar
     fn push_row(&mut self, line: Vec<Item>) {
         self.0.push(line);
     }
 
-    /// Elimina la ultima fila del mapa
     fn pop_row(&mut self) {
         self.0.pop();
     }
@@ -75,12 +71,6 @@ impl Map {
         }
     }
 
-    /// Devuelve el siguiente punto en la direccion indicada
-    /// # Arguments
-    /// * `current` - Punto actual
-    /// * `direction` - Direccion a seguir
-    /// # Returns
-    /// * `Option<Point>` - Punto siguiente o None si no se puede avanzar en esa direccion
     fn get_next_point(&self, current: &Point, direction: &Direction) -> Option<Point> {
         let x = current.x as isize;
         let y = current.y as isize;
@@ -105,9 +95,6 @@ impl Map {
         Some(next_point)
     }
 
-    /// Daña a los enemigos que se encuentran en los puntos indicados
-    /// # Arguments
-    /// * `enemies_to_damage` - HashMap donde la clave es el punto donde se encuentra el enemigo y el valor es la vida del enemigo
     fn damage_enemies(&mut self, enemies_to_damage: HashMap<Point, u32>) {
         for (enemy_point, enemy_health) in enemies_to_damage {
             let new_health = enemy_health - 1;
@@ -124,7 +111,6 @@ impl Map {
     /// * `point` - Punto donde se encuentra la bomba a detonar
     /// # Returns
     /// * `Result<(), String>` - Resultado de la detonacion. No retorna nada en caso de exito o un mensaje de error en caso de que no se pueda detonar la bomba.
-    /// Cabe destacar que los errores que retorna esta funcion proviene o de la funcion get_explosion_properties o de la funcion spread_burst.
     pub fn detonate_bomb(&mut self, point: &Point) -> Result<(), String> {
         let (reach, is_piercing) = self.get_explosion_properties(point)?;
         self.set_at(point, Item::Empty);
@@ -136,15 +122,6 @@ impl Map {
         Ok(())
     }
 
-    /// Propaga la explosion de una bomba en una direccion
-    /// # Arguments
-    /// * `point` - Punto donde se encuentra la bomba a detonar
-    /// * `direction` - Direccion en la que se propagara la explosion
-    /// * `is_piercing` - Indica si la bomba es de traspaso o no
-    /// * `reach` - Alcance de la explosion
-    /// # Returns
-    /// * `Result<(), String>` - Resultado de la propagacion. No retorna nada en caso de exito o un mensaje de error en caso de que no se pueda propagar la explosion.
-    /// Cabe destacar que los errores que retorna esta funcion proviene de la funcion detonate_bomb.
     fn spread_burst(
         &mut self,
         point: &Point,
