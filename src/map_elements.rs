@@ -42,8 +42,11 @@ impl Item {
                 let reach = parse_greater_than_zero_u32(reach_raw)?;
                 Ok(Item::PiercingBomb(reach))
             }
-            char => Err("ERROR: [El archivo de entrada contiene un caracter invalido '".to_owned()
-                    + char + "']."),
+            char => Err(
+                "ERROR: [El archivo de entrada contiene un caracter invalido '".to_owned()
+                    + char
+                    + "'].",
+            ),
         }
     }
 }
